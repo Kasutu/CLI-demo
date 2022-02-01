@@ -6,7 +6,7 @@
 // import readline using `npm install readline-sync`
 import readline from 'readline-sync';
 
-// make a question and split everything with a ' ' (space) seperator
+// make a question and split everything with a ' ' (space) separator
 // to make an array of words
 const name = readline.question('name? ').split(' ');
 console.log(name);
