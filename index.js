@@ -13,11 +13,6 @@ let person = '';
 let args = process.argv.splice(2);
 const processArr = [];
 
-// init
-await getInput(args, '=');
-await run(processArr);
-await display();
-
 // language selector
 function selectLanguage(language) {
 	switch (language) {
@@ -80,3 +75,8 @@ async function display() {
 	console.log('Output -> ', greeting, person);
 	console.log('---------------------------------------------');
 }
+
+// init
+await getInput(args, '=');
+await run(processArr);
+await display();
