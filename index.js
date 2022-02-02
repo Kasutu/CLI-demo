@@ -13,6 +13,18 @@ let person = '';
 let args = process.argv.splice(2);
 const processArr = [];
 
+function getFlag(arr) {
+	let bool = false;
+	const flagList = ['--language', '--person'];
+
+	arr.forEach((element) => {
+		if (flagList.indexOf(element) !== -1) {
+			bool = true;
+		}
+	});
+	return bool;
+}
+
 // language selector
 function selectLanguage(language) {
 	switch (language) {
@@ -32,18 +44,23 @@ function selectLanguage(language) {
 
 // sorts the input from arguments
 async function getInput(arg, symbol) {
-	arg.forEach((elements) => {
-		const chars = elements.split('').indexOf(symbol);
+	if (getFlag(arg)) {
+		arg.forEach((element) => {
+			processArr.push(element);
+		});
+	}
 
+	arg.forEach((element) => {
+		const chars = element.split('').indexOf(symbol);
+
+		// equal sign not in str
 		if (chars !== -1) {
-			const sign = elements.split(symbol);
+			const sign = element.split(symbol);
 
 			sign.forEach((element) => {
 				processArr.push(element);
 			});
 		}
-
-		return; // do nothing
 	});
 }
 
@@ -64,9 +81,9 @@ async function run(arr) {
 	}
 }
 
-async function display() {
+async function display(arr) {
 	// index helper logger
-	args.forEach(function (val, index) {
+	arr.forEach(function (val, index) {
 		console.log(`index ${index} argument -> ${val}`);
 	});
 
@@ -78,5 +95,6 @@ async function display() {
 
 // init
 await getInput(args, '=');
+console.log(processArr, 'process arr');
 await run(processArr);
-await display();
+await display(args);
